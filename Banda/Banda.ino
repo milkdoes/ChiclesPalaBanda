@@ -1,4 +1,5 @@
 // ENUMERACIONES.
+// Pines donde estan conectados los leds.
 enum LED {
   LED_X1 = 5,
   LED_X2 = 6,
@@ -7,11 +8,13 @@ enum LED {
 
 // CONSTANTES.
 const byte CANTIDAD_LEDS = 3;
+// Pines donde estan conectados los fototransistores.
 const byte FOTOTRANSISTOR_X1 = 2;
 const byte FOTOTRANSISTOR_X2 = 3;
 const byte FOTOTRANSISTOR_Y = 4;
 
 // FUNCIONES.
+// Prender o apagar un led en un pin y de acuerdo a una instruccion.
 void CambiarEstadoLed(const byte pinLed, const bool prender) {
   if (prender) {
     digitalWrite(pinLed, HIGH);
@@ -44,7 +47,7 @@ void loop() {
   const bool longitudValida = xNegativaValida && xPositivaValida;
   const bool alturaValida = digitalRead(FOTOTRANSISTOR_Y) == false;
 
-  // Prender los leds que corresponden a los indicadores de mediciones.
+  // Prender ó apagar los leds que corresponden a los indicadores de mediciones.
   CambiarEstadoLed(LED_X1, xNegativaValida);
   CambiarEstadoLed(LED_X2, xPositivaValida);
   CambiarEstadoLed(LED_Y, alturaValida);
