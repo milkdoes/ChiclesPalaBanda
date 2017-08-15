@@ -12,6 +12,7 @@ const byte CANTIDAD_LEDS = 3;
 const byte FOTOTRANSISTOR_X1 = 2;
 const byte FOTOTRANSISTOR_X2 = 3;
 const byte FOTOTRANSISTOR_Y = 4;
+const byte FOTOTRANSISTOR_SALIDA = 8;
 
 // FUNCIONES.
 // Prender o apagar un led en un pin y de acuerdo a una instruccion.
@@ -39,6 +40,11 @@ void setup() {
   pinMode(FOTOTRANSISTOR_Y, INPUT);
 }
 
+// VARIABLES GLOBALES.
+unsigned long conteoEntradas = 0;
+unsigned long conteoBuenas = 0;
+unsigned long conteoMalas = 0;
+
 // PRINCIPAL.
 void loop() {
   // Verificar si la longitud y altura para un producto cubren los sensores.
@@ -51,4 +57,15 @@ void loop() {
   CambiarEstadoLed(LED_X1, xNegativaValida);
   CambiarEstadoLed(LED_X2, xPositivaValida);
   CambiarEstadoLed(LED_Y, alturaValida);
+
+	// Verificar si existio una salida buena.
+	const bool salidaBuena = digitalRead(FOTOTRANSISTOR_SALIDA) == false;
+	if (salidaBuena) {
+		conteoBuenas += 1;
+	}
+
+	// Desplegar los valores existentes.
+	String valoresProduccion = "{"
+	valoresProduccion += "ConteoBuenas:" + String(conteoBuenas);
+	valoresProduccion += "}";
 }
